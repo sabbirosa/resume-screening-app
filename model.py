@@ -14,10 +14,6 @@ from sklearn.preprocessing import LabelEncoder
 
 df = pd.read_csv('UpdatedResumeDataSet.csv')
 
-df['Category'].value_counts()
-
-df['Category'].unique()
-
 
 def clean_resume(text):
     clean_text = re.sub('http\S+\s', ' ', text)
@@ -33,16 +29,10 @@ def clean_resume(text):
 
 df['Resume'] = df['Resume'].apply(lambda x: clean_resume(x))
 
-df['Resume']
-
 le = LabelEncoder()
 
 le.fit(df['Category'])
 df['Category'] = le.transform(df['Category'])
-
-df['Category']
-
-df['Resume'][0]
 
 tfidf = TfidfVectorizer(stop_words='english')
 tfidf.fit(df['Resume'])
@@ -50,10 +40,6 @@ required_text = tfidf.transform(df['Resume'])
 
 x_train, x_test, y_train, y_test = train_test_split(
     required_text, df['Category'], test_size=0.2, random_state=42)
-
-x_train.shape
-
-x_test.shape
 
 clf = OneVsRestClassifier(KNeighborsClassifier())
 clf.fit(x_train, y_train)
