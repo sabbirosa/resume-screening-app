@@ -2,7 +2,7 @@ from PyPDF2 import PdfReader
 
 from model import clean_resume, clf, tfidf
 
-reader = PdfReader('resume.pdf')
+reader = PdfReader('python_developer_resume.pdf')
 
 my_resume = ""
 
